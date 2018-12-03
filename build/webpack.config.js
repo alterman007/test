@@ -17,7 +17,7 @@ const { isDevMode } = require('../utils/env');
 const rootDir = process.cwd();
 const outputPath = path.resolve(rootDir, 'dist');
 
-const styleLoader = isDevMode ? [
+const cssLoader = isDevMode ? [
   {
     loader: 'style-loader',
     options: {
@@ -41,9 +41,25 @@ const styleLoader = isDevMode ? [
   'css-loader',
   'postcss-loader',
 ];
+
+const lessLoader = [{
+  loader: 'less-loader',
+  options: {
+    sourceMap: isDevMode,
+  },
+}];
+
+const stylusLoader = [{
+  loader: 'stylus-loader',
+  options: {
+    sourceMap: isDevMode,
+  },
+}];
+
 const fileLoader = [{
   loader: 'file-loader',
 }];
+
 const imgLoader = isDevMode
   ? fileLoader
   : [
@@ -66,6 +82,7 @@ const commonConfig = {
   output: {
     filename: '[name].[hash:5].js',
     chunkFilename: '[name].[hash:10].js',
+    publicPath: '/project',
     path: outputPath,
   },
   resolve: {
@@ -95,8 +112,16 @@ const commonConfig = {
       },
       {
         test: /\.css$/,
-        use: styleLoader,
+        use: cssLoader,
         // exclude: /node_modules/,
+      },
+      {
+        test: /\.less$/,
+        use: cssLoader.concat(lessLoader),
+      },
+      {
+        test: /\.styl$/,
+        use: cssLoader.concat(stylusLoader),
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Count.css';
+import './Count.less';
 class Count extends React.Component {
   public componentDidMount() {
     // todo

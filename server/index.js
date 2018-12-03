@@ -1,3 +1,4 @@
+const os = require('os');
 const path = require('path');
 const express = require('express');
 const serveFavicon = require('serve-favicon');
@@ -14,6 +15,10 @@ const { isDevMode, PORT } = require('../utils/env');
 const app = express();
 
 app.use(serveFavicon(path.join(__dirname, '../favicon.ico')));
+
+app.get('/', (req, res) => {
+  res.redirect('/project');
+});
 app.use('/assets', express.static(path.join(__dirname, './assets')));
 for (let context in proxyConfig) {
   app.use(proxyMiddleware(context, proxyConfig[context]));
@@ -27,6 +32,20 @@ if (isDevMode) {
   app.use('/project', express.static(path.join(process.cwd(), 'dist')));
 }
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`\nserver listening on http://${getIPAddress()}:${PORT}`);
+  opn(`http://${getIPAddress()}:${PORT}/project`);
+});
 
-opn(`http://127.0.0.1:${PORT}/`);
+function getIPAddress() {
+  const interfaces = os.networkInterfaces();
+  for (const key in interfaces) {
+    const face = interfaces[key];
+    for (let i = 0; i < face.length; i++) {
+      const details = face[i];
+      if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
+        return details.address;
+      }
+    }
+  }
+}
