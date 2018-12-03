@@ -1,0 +1,14 @@
+{
+  "extends": ["tslint:recommended", "tslint-react"],
+  "defaultSeverity": "error",
+  "rules": {
+    "ordered-imports": [false, {
+      "import-sources-order": "lowercase-last",
+      "named-imports-order": "lowercase-first"
+    }],
+    "semicolon": [true, "always"],
+    "quotemark": [true, "single", "jsx-double"],
+    "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "object-literal-sort-keys": [false]
+  }
+}

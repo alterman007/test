@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'testAlterman';
+  src: url('/assets/font/SourceHanSansHWSC-Bold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  display: flex;
+  font-family: testAlterman;
+  /* background: url('/assets/img/bg.jpg'); */
+  background: green;
+}

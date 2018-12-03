@@ -1,0 +1,22 @@
+.count {
+  color: yellow;
+}
+ul li {
+  width: 128px;
+  height: 128px;
+}
+.img-bg-1 {
+  background: url('./img/1.png');
+}
+.img-bg-2 {
+  background: url('./img/2.png');
+}
+.img-bg-3 {
+  background: url('./img/3.png');
+}
+.img-bg-4 {
+  background: url('./img/4.png');
+}
+.count-b:before {
+  content: 'this is ctt'
+}
